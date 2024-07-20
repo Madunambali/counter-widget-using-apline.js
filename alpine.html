@@ -12,7 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #96b5f7;
+            background-image: url(counter1-walpaper.jpeg);
         }
         
         .container {
@@ -27,14 +27,40 @@
 <body>
     <div class="container">
         <h1>ALPINE COUNTER</h1>
-        <div x-data="{ count: 0 }">
+        <div x-data="counter()">
             <div class="counter" x-text="count"></div>
             <div>
-                <button @click="count++">+</button>
-                <button @click="count--">-</button>
+                <button @click="increment()" :disabled="count >= max">+</button>
+                <button @click="decrement()" :disabled="count <= 0">-</button>
+                <button @click="reset()">Reset</button>
             </div>
         </div>
     </div>
+
+    <script>
+        function counter() {
+            return {
+                count: 0,
+                max: 10, 
+
+                increment() {
+                    if (this.count < this.max) {
+                        this.count++;
+                    }
+                },
+
+                decrement() {
+                    if (this.count > 0) {
+                        this.count--;
+                    }
+                },
+
+                reset() {
+                    this.count = 0;
+                }
+            };
+        }
+    </script>
 </body>
 
 </html>

@@ -1,17 +1,45 @@
-// a plain DOM example of creating a  counter widget using the DOM
+document.addEventListener('DOMContentLoaded', function() {
+    const counterElement = document.querySelector('.counter');
+    const incrementButton = document.querySelector('.increment');
+    const decrementButton = document.querySelector('.decrement');
+    const resetButton = document.createElement('button');
+    resetButton.textContent = 'Reset';
+    resetButton.classList.add('reset');
+    const container = document.querySelector('.container');
+    const maxValue = 50;
 
-let counter = 0;
+    // Initial counter value
+    let counterValue = 0;
+    updateCounter();
 
-const counterElem = document.querySelector('.counter');
-const incrementBtn =  document.querySelector('.increment');
-const decrementBtn = document.querySelector('.decrement');
+  
+    incrementButton.addEventListener('click', function() {
+        if (counterValue < maxValue) {
+            counterValue++;
+            updateCounter();
+        }
+    });
 
-incrementBtn.addEventListener('click', function() {
-    counter++;
-    counterElem.innerText = counter;
-});
+    
+    decrementButton.addEventListener('click', function() {
+        if (counterValue > 0) {
+            counterValue--;
+            updateCounter();
+        }
+    });
 
-decrementBtn.addEventListener('click', function() {
-    counter--;
-    counterElem.innerText = counter;
+    // Reset button click handler
+    resetButton.addEventListener('click', function() {
+        counterValue = 0;
+        updateCounter();
+    });
+    
+    
+    const buttonsContainer = document.querySelector('.buttons');
+    buttonsContainer.appendChild(resetButton);
+
+   
+    function updateCounter() {
+        counterElement.textContent = counterValue;
+    }
 });
